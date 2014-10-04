@@ -15,10 +15,10 @@ def extract_surf(url):
 	try:
 		req = urllib.urlopen(url)
 		arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
-		im 	= cv2.imdecode(arr, -1)
+		im = cv2.imdecode(arr, -1)
 
 		if im is None:
-				continue
+			continue
 
 		surf = cv2.SURF(400)
 		kp, des = surf.detectAndCompute(im, None)
