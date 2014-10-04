@@ -18,7 +18,7 @@ def extract_surf(url):
 		im = cv2.imdecode(arr, -1)
 
 		if im is None:
-			continue
+			return None, None
 
 		surf = cv2.SURF(400)
 		kp, des = surf.detectAndCompute(im, None)
@@ -43,12 +43,13 @@ if __name__ == '__main__':
 		for key in input_db:
 			url = input_db[key]['url']
 			kp, des = extract_surf(url)
-			output_db[key] = {'kp': kp, 'des': des}
 
-			n -= 1
+			if kp is not None and des is not None:
+				output_db[key] = {'kp': kp, 'des': des}
+				n -= 1
 
-			if n == 0:
-				break
+				if n == 0:
+					break
 
 		input_db.close()
 		output_db.close()
